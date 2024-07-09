@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TEST</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        table {
+            width: 100%;
+        }
+        td {
+            width: 50%;
+            text-align: center;
+        }
+        img {
+
+            width: 100px;
+            height: 100px;
+        }
+     
+    </style>
+</head>
+<body>
+    <h1>Viewer</h1>
+    <form id="imageForm">
+        <label for="numImages">Number of Images: </label>
+        <input type="text" id="numImages" name="numImages" value="4">
+        <button type="button" onclick="displayImages()">Display Images</button>
+    </form>
+    <h2>Images</h2>
+    <div id="message"></div>
+    <div id="imageContainer"></div>
+
+    <script>
+        function displayImages() {
+            const numImages = parseInt(document.getElementById('numImages').value);
+            const messageDiv = document.getElementById('message');
+            const imageContainer = document.getElementById('imageContainer');
+            imageContainer.innerHTML = ''; 
+            messageDiv.innerHTML = ''; 
+
+            
+            if (isNaN(numImages) || numImages < 1 || numImages % 2 !== 0) {
+                messageDiv.innerHTML = 'Invalid value';
+                return;
+            }
+
+            
+            const table = document.createElement('table');
+            let row;
+
+           
+            for (let i = 1; i <= numImages; i++) {
+                if (i % 2 !== 0) {
+                    row = document.createElement('tr');
+                    table.appendChild(row);
+                }
+
+                const cell = document.createElement('td');
+                const img = document.createElement('img');
+                img.src = `college${i}.jpg`; 
+                img.onerror = () => {
+                    img.src = 'placeholder.jpg'; 
+                };
+                cell.appendChild(img);
+                row.appendChild(cell);
+            }
+
+            imageContainer.appendChild(table);
+        }
+    </script>
+</body>
+</html>
